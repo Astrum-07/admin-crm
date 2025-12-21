@@ -12,10 +12,10 @@ const Header = ({ toggleSidebar }) => {
   });
 
   useEffect(() => {
-    // 1. LocalStorage dan 'user' kalitini olish
+
     const storedUser = localStorage.getItem('user');
     
-    // Konsolda tekshirish (Xatolikni topish uchun juda muhim)
+
     console.log("LocalStorage dagi xom ma'lumot:", storedUser);
 
     if (storedUser) {
@@ -23,9 +23,7 @@ const Header = ({ toggleSidebar }) => {
         const parsed = JSON.parse(storedUser);
         console.log("Parse qilingan ma'lumot:", parsed);
 
-        // 2. Ismni aniqlash (turli variantlarni tekshiramiz)
-        // Agar backendda 'first_name' va 'last_name' bo'lsa birlashtiramiz
-        // Agar shunchaki 'name' yoki 'fullName' bo'lsa o'shani olamiz
+      
         const firstName = parsed?.first_name || "";
         const lastName = parsed?.last_name || "";
         const fullName = parsed?.name || parsed?.fullName || parsed?.username;
@@ -34,7 +32,7 @@ const Header = ({ toggleSidebar }) => {
           ? `${firstName} ${lastName}`.trim() 
           : (fullName || "Foydalanuvchi");
 
-        // 3. Rolni aniqlash
+
         const finalRole = parsed?.role || "Manager";
 
         setUserData({
@@ -48,7 +46,7 @@ const Header = ({ toggleSidebar }) => {
     } else {
       setUserData({ name: "Kirilmagan", role: "Mehmon" });
     }
-  }, [location.pathname]); // Har safar sahifa almashganda profil yangilanishi uchun
+  }, [location.pathname]); 
 
   const getPathName = () => {
     const path = location.pathname;
@@ -68,7 +66,7 @@ const Header = ({ toggleSidebar }) => {
   return (
     <header className="h-16 md:h-20 bg-white border-b-2 border-black px-4 md:px-8 flex items-center justify-between sticky top-0 z-30">
       
-      {/* CHAP TOMON: Menu va Breadcrumbs */}
+
       <div className="flex items-center space-x-3 md:space-x-6">
         <button 
           onClick={toggleSidebar}
@@ -87,7 +85,7 @@ const Header = ({ toggleSidebar }) => {
         </nav>
       </div>
 
-      {/* O'NG TOMON: Profil qismi */}
+
       <div className="flex items-center space-x-2 md:space-x-6">
         <button className="p-2 border-2 border-transparent hover:border-black transition-all">
           <FiBell size={18} className="md:size-5" />

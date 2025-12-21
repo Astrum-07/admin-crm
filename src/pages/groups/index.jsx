@@ -14,7 +14,7 @@ import {
 
 const Groups = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const baseUrl = "https://admin-crm.onrender.com";
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem('token');
 
   const { data: groups = [], isPending, isError } = useQuery({

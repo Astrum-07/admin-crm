@@ -13,7 +13,7 @@ import {
 import { FaSnowflake } from 'react-icons/fa6';
 
 const Courses = () => {
-  const baseUrl = "https://admin-crm.onrender.com";
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem('token');
 
 

@@ -18,7 +18,7 @@ const Students = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
 
-  const baseUrl = "https://admin-crm.onrender.com";
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem('token');
 
   const { data: students = [], isPending, isError } = useQuery({
