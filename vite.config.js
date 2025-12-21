@@ -6,9 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss(),],
       server: {
-     proxy: {
-      '/api': 'https://admin-crm.onrender.com',
-    }
+    port: 3000,
     
   }
 })
