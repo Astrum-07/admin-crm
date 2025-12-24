@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { FiMail, FiLock, FiArrowRight, FiAlertCircle, FiCheckCircle, FiLoader } from 'react-icons/fi';
+import { FiMail, FiLock, FiArrowRight, FiAlertCircle, FiLoader } from 'react-icons/fi';
 
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false); 
   const navigate = useNavigate();
 
-
-  useEffect(() => {
+  const [email, setEmail] = useState(() => {
     const savedData = localStorage.getItem('rememberedAdmin');
-    if (savedData) {
-      const { email: savedEmail, password: savedPassword } = JSON.parse(savedData);
-      setEmail(savedEmail);
-      setPassword(savedPassword);
-      setRememberMe(true);
-    }
-  }, []);
+    return savedData ? JSON.parse(savedData).email : '';
+  });
+
+  const [password, setPassword] = useState(() => {
+    const savedData = localStorage.getItem('rememberedAdmin');
+    return savedData ? JSON.parse(savedData).password : '';
+  });
+
+  const [rememberMe, setRememberMe] = useState(() => {
+    return !!localStorage.getItem('rememberedAdmin');
+  });
 
   const loginMutation = useMutation({
     mutationFn: async (credentials) => {
@@ -40,13 +40,11 @@ const SignIn = () => {
       const userData = res?.user || res?.data?.user || res?.data;
 
       if (token) {
-
         if (rememberMe) {
           localStorage.setItem('rememberedAdmin', JSON.stringify({ email, password }));
         } else {
           localStorage.removeItem('rememberedAdmin');
         }
-
 
         localStorage.setItem('token', token);
         if (userData) {
@@ -84,7 +82,6 @@ const SignIn = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5" autoComplete="on">
-
           <div className="space-y-1">
             <label className="text-[10px] font-black uppercase tracking-[2px]">Email</label>
             <div className="relative group">
@@ -103,7 +100,6 @@ const SignIn = () => {
               />
             </div>
           </div>
-
 
           <div className="space-y-1">
             <label className="text-[10px] font-black uppercase tracking-[2px]">Parol</label>
@@ -124,7 +120,6 @@ const SignIn = () => {
             </div>
           </div>
 
-
           <div className="flex items-center space-x-2 cursor-pointer pt-2">
             <div 
               onClick={() => setRememberMe(!rememberMe)}
@@ -139,7 +134,6 @@ const SignIn = () => {
               Meni eslab qol
             </span>
           </div>
-
 
           <button
             type="submit"
